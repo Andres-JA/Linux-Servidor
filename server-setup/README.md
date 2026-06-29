@@ -9,9 +9,9 @@ en una máquina virtual, dejándolo listo para administración remota.
 
 | Parámetro | Valor |
 |-----------|-------|
-| Hypervisor | VirtualBox 7.x |
-| OS | Ubuntu Server 24.04 LTS |
-| RAM | 4096 MB |
+| Hypervisor | VirtualBox  |
+| OS | Ubuntu Server 26.04 LTS |
+| RAM | 2048 MB |
 | Disco | 25 GB |
 | Red | Adaptador puente |
 | Usuario | devops |
