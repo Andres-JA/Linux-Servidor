@@ -10,16 +10,16 @@ los archivos del proyecto.
 
 | Usuario | Grupo principal | Grupos secundarios | Sudo | Rol |
 |---------|----------------|-------------------|------|-----|
-| dev | dev | developers | Si | Desarrollador |
+| dev | dev | developers | No | Desarrollador |
 | cloud | cloud | developers | No | Cloud Engineer |
 | admin | admin | admins, sudo | Si | Administrador |
 
 ## Estructura de directorios creada
-/srv/project/
-├── src/ → grupo developers, SGID activado
-├── config/ → grupo developers
-├── logs/ → solo dueño puede escribir
-└── backups/ → grupo developers
+/srv/project/  
+├── src/ → grupo developers, SGID activado  
+├── config/ → grupo developers  
+├── logs/ → solo dueño puede escribir  
+└── backups/ → grupo developers  
 
 
 ## Permisos aplicados
