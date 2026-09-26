@@ -6,29 +6,56 @@ El cliente necesita configurar accesos para su equipo en el servidor.
 Tres roles diferentes, cada uno con permisos distintos sobre
 los archivos del proyecto.
 
+## Objetivo
+
+Crear la estructura de usuarios, grupos y permisos de `/srv/project`
+para que el equipo trabaje en el mismo proyecto sin pisarse,
+y restringir el acceso SSH a los perfiles de administración.
+
+## Tareas completadas
+
+- [x] Crear los grupos `developers` y `admins`
+- [x] Crear los usuarios `dev`, `cloud` y `admin` con su directorio home
+- [x] Asignar grupos secundarios con `usermod -aG`
+- [x] Crear la estructura `/srv/project/` con `src/`, `config/`, `logs/` y `backups/`
+- [x] Aplicar permisos 775 y activar el bit SGID en `src/`
+- [x] Verificar que `dev` no tiene sudo y `admin` sí
+- [x] Restringir el acceso SSH con `AllowUsers` y confirmar que el servicio sigue activo
+- [x] Listar los usuarios reales del sistema con `awk`
+
 ## Usuarios configurados
 
 | Usuario | Grupo principal | Grupos secundarios | Sudo | Rol |
 |---------|----------------|-------------------|------|-----|
 | dev | dev | developers | No | Desarrollador |
 | cloud | cloud | developers | No | Cloud Engineer |
-| admin | admin | admins, sudo | Si | Administrador |
+| admin | admin | admins, sudo | Sí | Administrador |
+
+> `devops` es la cuenta base creada en [V01 Server Setup](../server-setup/README.md).
+> No forma parte de esta versión, pero es la dueña de `/srv/project/`
+> y mantiene acceso por SSH como administrador del servidor.
 
 ## Estructura de directorios creada
-/srv/project/  
-├── src/ → grupo developers, SGID activado  
-├── config/ → grupo developers  
-├── logs/ → solo dueño puede escribir  
-└── backups/ → grupo developers  
 
+`/srv` es la ruta reservada en la jerarquía FHS para los datos
+específicos de los servicios del sistema. `/srv/project/` organiza
+el proyecto del cliente dentro de ese estándar.
+
+```text
+/srv/project/                 chown devops:developers
+├── src/                     grupo developers, SGID activado
+├── config/                  grupo developers
+├── logs/                    solo el dueño puede escribir
+└── backups/                 grupo developers
+```
 
 ## Permisos aplicados
 
 | Directorio | Permisos | Significado |
 |------------|----------|-------------|
-| /srv/project/ | 775 + chown devops:developers | Grupo puede leer y escribir |
-| /srv/project/src/ | 775 + SGID | Archivos heredan grupo developers |
-| /srv/project/logs/ | 755 | Solo el dueño escribe |
+| `/srv/project/` | 775 + `chown devops:developers` | Grupo puede leer y escribir |
+| `/srv/project/src/` | 775 + SGID (`chmod g+s`) | Archivos heredan grupo `developers` |
+| `/srv/project/logs/` | 755 | Solo el dueño escribe |
 
 ## Comandos clave aprendidos
 
@@ -50,11 +77,21 @@ los archivos del proyecto.
 `useradd` es el comando de bajo nivel, más rápido y usado
 en scripts de automatización en producción.
 
+## Verificación de privilegios sudo
+
+Los permisos de `sudo` no se aplican en el momento. El usuario tiene que
+cerrar la sesión y volver a entrar para que el sistema relea sus grupos
+actualizados. La captura de evidencia confirma que `dev` recibe
+`dev is not in the sudoers file` mientras que `admin` sí opera
+como administrador.
+
 ## Restricción SSH aplicada
 
-Solo los usuarios `devops` y `admin` pueden conectarse
-por SSH. Configurado en `/etc/ssh/sshd_config` con `AllowUsers`.
-Esto evita que usuarios de solo trabajo tengan acceso remoto.
+Solo `devops` (cuenta base) y `admin` pueden conectarse por SSH.
+Configurado en `/etc/ssh/sshd_config` con la directiva `AllowUsers`.
+
+Esto evita que los usuarios de solo trabajo (`dev` y `cloud`)
+tengan acceso remoto al servidor.
 
 ## Lo que aprendí
 
@@ -66,21 +103,31 @@ permisos manualmente, el bit SGID lo hace automáticamente.
 La restricción de SSH por usuario es una de las primeras
 cosas que se configura en servidores de producción.
 
+Un detalle que costó tiempo: dar de alta a un usuario en el grupo
+`sudo` no activa el privilege en la sesión actual. Hay que
+reconectarse, y por eso conviene verificar con una sesión nueva
+y no asumir que el comando falló.
+
 ## Evidencia
 
 ### Grupos y usuarios creados
-![Grupos](./screenshots/01-groups-created.png)
-![Usuarios](./screenshots/02-users-created.png)
-![IDs completos](./screenshots/03-user-ids.png)
+
+![Grupos developers y admins creados](./screenshots/01-groups-created.jpeg)
+![Usuarios dev, cloud y admin con sus IDs](./screenshots/02-users-and-ids.jpeg)
 
 ### Estructura de directorios y permisos
-![Estructura](./screenshots/04-project-structure.png)
-![Test de permisos](./screenshots/05-permissions-test.png)
-![SGID en acción](./screenshots/06-sgid.png)
+
+![Estructura de /srv/project con ls -la](./screenshots/03-project-structure.jpeg)
+
+### Privilegios sudo
+
+![dev sin sudo frente a admin con sudo](./screenshots/04-sudo-privileges.jpeg)
 
 ### Seguridad SSH
-![Restricción SSH](./screenshots/07-ssh-restriction.png)
+
+![Directiva AllowUsers en sshd_config](./screenshots/05-ssh-allowusers-config.jpeg)
+![Servicio SSH sigue corriendo tras el cambio](./screenshots/06-ssh-service-status.jpeg)
 
 ### Administración
-![Usuarios reales](./screenshots/08-real-users.png)
-![Limpieza](./screenshots/09-cleanup.png)
+
+![Usuarios reales del sistema con awk](./screenshots/07-real-users.jpeg)

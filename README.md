@@ -15,27 +15,26 @@ Cada versión resuelve un problema concreto como en un entorno de trabajo real.
 ## Progreso
 
 | # | Versión | Objetivo | Estado |
-|---|---------|----------|--------|
+|:--|:--------|----------|:-------|
 | 01 | [Server Setup](server-setup/) | Instalar y configurar Ubuntu Server | Completado |
-| 02 | User Management | Usuarios, grupos y permisos | En progreso |
+| 02 | [User Management](user-management/) | Usuarios, grupos y permisos | Completado |
 | 03 | Filesystem | Organización del sistema de archivos | Pendiente |
 | 04 | Security | UFW, SSH keys, Fail2Ban | Pendiente |
 | 05 | Automation | Scripts Bash | Pendiente |
 | 06 | Monitoring | Reporte del sistema | Pendiente |
 | 07 | Web Server | Nginx | Pendiente |
-| 08 | Logs | journalctl, grep, análisis |  Pendiente |
-| 09 | Backups | Sistema automático con cron |  Pendiente |
-| 10 | Docker | Contenedores |  Pendiente |
-| 11 | Final Project | Todo integrado |  Pendiente |
+| 08 | Logs | journalctl, grep, análisis | Pendiente |
+| 09 | Backups | Sistema automático con cron | Pendiente |
+| 10 | Docker | Contenedores | Pendiente |
+| 11 | Final Project | Todo integrado | Pendiente |
 
 ## Documentación Asociada
 
 | Archivo | Descripción |
 |:---|:---|
 | [CHANGELOG.md](./CHANGELOG.md) | Registro de cambios por versión |
-|  |  |
-|  |  |
-|  |  |
+| [server-setup/README.md](server-setup/README.md) | V01 — Instalación y configuración base del servidor |
+| [user-management/README.md](user-management/README.md) | V02 — Usuarios, grupos, permisos y acceso SSH |
 
 ---
 
