@@ -16,7 +16,7 @@ Cada versión resuelve un problema concreto como en un entorno de trabajo real.
 
 | # | Versión | Objetivo | Estado |
 |---|---------|----------|--------|
-| 01 | [Server Setup](./v01-server-setup/) | Instalar y configurar Ubuntu Server | Completado |
+| 01 | [Server Setup](server-setup/) | Instalar y configurar Ubuntu Server | Completado |
 | 02 | User Management | Usuarios, grupos y permisos | En progreso |
 | 03 | Filesystem | Organización del sistema de archivos | Pendiente |
 | 04 | Security | UFW, SSH keys, Fail2Ban | Pendiente |
