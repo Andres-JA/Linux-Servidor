@@ -1,13 +1,29 @@
-# Changelog
+﻿# Changelog
 
 Todos los cambios relevantes de este proyecto se registran en este archivo.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/)
 y el proyecto se versiona con [Versionado Semántico](https://semver.org/lang/es/).
 
-## [No publicado]
+## [V03] — Filesystem
 
-Pendiente de iniciar la V03 — Filesystem.
+### Agregado
+
+- Estructura `/srv/project/` extendida con `src/`, `config/`, `logs/`, `backups/` y `tmp/`
+- Permisos diferenciados por directorio según el rol que accede: `755`, `750`, `700` y `1777`
+- Sticky bit en `/srv/project/tmp`
+- Enlace simbólico `/srv/project/config/app.conf` → `/etc/project/app.conf`
+- Uso avanzado de `find`: por nombre, fecha, permisos y tamaño
+- Análisis de disco con `du`, `df -hT` y `df -i`
+- Puntos de montaje revisados con `findmnt` y `lsblk`
+- Documentación interna `README-structure.txt` en el servidor
+
+### Aprendido
+
+- Filesystem Hierarchy Standard (FHS)
+- Diferencia entre sticky bit y SGID
+- Cómo y por qué usar symlinks en producción
+- Análisis de inodos con `df -i`
 
 ## [V02] — User Management
 

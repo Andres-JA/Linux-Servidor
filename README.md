@@ -1,9 +1,8 @@
-# Linux Server Journey
+﻿# Linux Server Journey
 
-Proyecto progresivo donde configuro y administro un servidor
-Linux desde cero, simulando el trabajo real de un sysadmin.
+Proyecto progresivo donde configuro y administro un servidor Linux desde cero, simulando el trabajo real de un sysadmin.
 
-Cada versión resuelve un problema concreto como en un entorno de trabajo real.
+Cada versión resuelve un problema concreto, igual que en un entorno de producción: instalación, usuarios y permisos, filesystem, seguridad, automatización y más.
 
 ## Stack
 
@@ -17,10 +16,10 @@ Cada versión resuelve un problema concreto como en un entorno de trabajo real.
 | # | Versión | Objetivo | Estado |
 |:--|:--------|----------|:-------|
 | 01 | [Server Setup](server-setup/) | Instalar y configurar Ubuntu Server | Completado |
-| 02 | [User Management](user-management/) | Usuarios, grupos y permisos | Completado |
-| 03 | Filesystem | Organización del sistema de archivos | Pendiente |
-| 04 | Security | UFW, SSH keys, Fail2Ban | Pendiente |
-| 05 | Automation | Scripts Bash | Pendiente |
+| 02 | [User Management](user-management/) | Usuarios, grupos, permisos y SGID | Completado |
+| 03 | [Filesystem](Filesystem/) | Estructura, permisos avanzados y FHS | Completado |
+| 04 | Security | UFW, SSH keys, Fail2ban | En progreso |
+| 05 | Automation | Scripts bash | Pendiente |
 | 06 | Monitoring | Reporte del sistema | Pendiente |
 | 07 | Web Server | Nginx | Pendiente |
 | 08 | Logs | journalctl, grep, análisis | Pendiente |
@@ -35,13 +34,14 @@ Cada versión resuelve un problema concreto como en un entorno de trabajo real.
 | [CHANGELOG.md](./CHANGELOG.md) | Registro de cambios por versión |
 | [server-setup/README.md](server-setup/README.md) | V01 — Instalación y configuración base del servidor |
 | [user-management/README.md](user-management/README.md) | V02 — Usuarios, grupos, permisos y acceso SSH |
+| [Filesystem/README.md](Filesystem/README.md) | V03 — Estructura de directorios, permisos avanzados y FHS |
 
 ---
 
 ## Lo que estoy aprendiendo
 
-- Administración de servidores Linux 
+- Administración de servidores Linux
 - Automatización con Bash
-- Seguridad 
+- Seguridad
 - Docker
-- Base sólida para roles sysadmin, DevOps y Cloud Engineer.
+- Base sólida para roles sysadmin, DevOps y Cloud Engineer
